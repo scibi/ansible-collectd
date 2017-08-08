@@ -6,8 +6,8 @@
     state: 'present'
     install_recommends: False
   with_flattened:
-    - collectd_packages_base
-    - collectd_packages
+    - '{{ collectd_packages_base }}'
+    - '{{ collectd_packages }}'
 
 - name: Make sure /etc/collectd and /etc/collectd/collectd.conf.d exists
   file:
@@ -25,6 +25,7 @@
   register: collectd_register_detected_services_raw
   when: collectd_plugin_autodetect is defined and collectd_plugin_autodetect
   changed_when: False
+  check_mode: no
 
 - name: Extract list of plugins
   set_fact:
